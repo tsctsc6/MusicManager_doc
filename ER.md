@@ -35,10 +35,10 @@ erDiagram
         int music_info_id PK, FK
     }
 
-    artist ||--o{ music_info_artist : artist_id
-    music_info ||--o{ music_info_artist : music_info_id
-    album ||--o{ music_info : album_id
-    music_info ||--o{ music_info_song_list : music_info_id
-    song_list ||--o{ music_info_song_list : song_list_id
-    user ||--o{ song_list : user_id
+    artist ||--o{ music_info_artist : 创作
+    music_info ||--o{ music_info_artist : 被创作
+    album ||--o{ music_info : 收录
+    music_info ||--o{ music_info_song_list : 被收录
+    song_list ||--o{ music_info_song_list : 收录
+    user ||--o{ song_list : 拥有
 ```
