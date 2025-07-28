@@ -4,10 +4,10 @@ erDiagram
     music_info {
         int id PK
         varchar(100) title
-        varchar(100) ​​track_number​​
         int album_id FK
-        varchar(100) raw_file_path
+        varchar(100) ​​track_number​​
         int quality
+        varchar(100) raw_file_path
     }
     artist {
         int id PK
@@ -24,6 +24,7 @@ erDiagram
     user {
         int id PK
         varchar(50) name
+        varchar(50) password_hash
     }
     song_list {
         int id PK
