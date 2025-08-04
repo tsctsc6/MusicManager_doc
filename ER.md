@@ -21,11 +21,6 @@ erDiagram
         int id PK
         varchar(100) name
     }
-    user {
-        int id PK
-        varchar(50) name
-        varchar(50) password_hash
-    }
     song_list {
         int id PK
         int user_id FK
@@ -34,6 +29,20 @@ erDiagram
         int song_list_id PK, FK
         int music_info_id PK, FK
     }
+    user {
+        int id PK
+        varchar(50) name
+        varchar(50) password_hash
+        略 略
+    }
+    role {
+        int id PK
+        varchar(50) name
+    }
+    user_role {
+        int user_id PK
+        int role_id PK
+    }
 
     artist ||--o{ music_info_artist : 创作
     music_info ||--o{ music_info_artist : 被创作
@@ -41,4 +50,6 @@ erDiagram
     music_info ||--o{ music_info_song_list : 被收录
     song_list ||--o{ music_info_song_list : 收录
     user ||--o{ song_list : 拥有
+    user ||--o{ user_role : 拥有
+    role ||--o{ user_role : 拥有
 ```
