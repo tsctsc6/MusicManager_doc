@@ -31,8 +31,10 @@ erDiagram
     }
     user {
         int id PK
-        varchar(50) name
+        varchar(50) username
         varchar(50) password_hash
+        varchar(32) security_stamp
+        varchar(36) concurrency_stamp
         略 略
     }
     role {
