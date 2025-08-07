@@ -61,4 +61,10 @@ erDiagram
         varchar(256) path
         bool is_enable
     }
+
+    task {
+        string id PK "UUIDv7"
+        int type "Emun: Scan_all_storages"
+        int state "Emun: Running, Success, Faild"
+    }
 ```
