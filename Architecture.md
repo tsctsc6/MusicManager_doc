@@ -7,7 +7,7 @@ flowchart TD
     subgraph Backend
     Web_API <--> storage_scanner
     Web_API <--> MeiliSearch_SDK
-    Web_API <--> Database
+    Web_API <--> D[(Database)]
     end
     S["MeiliSearch"]
     U <--> Web_API
