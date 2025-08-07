@@ -201,7 +201,8 @@ POST /api/auth/login
 | :--: | :--: | :--: | :--: |
 | code | int | 是 | 状态码 |
 | message | string | 是 | 消息 |
-| token | string | 是 | JWT |
+| data | object | 是 |  |
+| data > token | string | 是 | JWT |
 
 ### 登出
 POST /api/auth/logout
@@ -217,5 +218,137 @@ POST /api/auth/logout
 | code | int | 是 | 状态码 |
 | message | string | 是 | 消息 |
 
+### 登出
+POST /api/auth/deregister
+
+#### 请求参数
+| 名称 | 位置 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: | :--: |
+| Authorization | header | string | 是 | Bearer |
+
+#### 返回数据结构
+| 名称 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: |
+| code | int | 是 | 状态码 |
+| message | string | 是 | 消息 |
+
 ## admin
-### 列出所有用户
+### user
+#### 列出所有用户
+GET /api/admin/user/list
+
+##### 请求参数
+| 名称 | 位置 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: | :--: |
+| Authorization | header | string | 是 | Bearer |
+| page | query | int | 否 | 页码 |
+| per_page | query | int | 否 | 每页数量 |
+
+##### 返回数据结构
+| 名称 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: |
+| code | int | 是 | 状态码 |
+| message | string | 是 | 消息 |
+| data | object | 是 |  |
+| data > users | object[] | 是 |  |
+| users > id | int | 是 |  |
+| users > username | string | 是 |  |
+| users > roles | string[] | 是 |  |
+| users > is_enable | bool | 是 |  |
+
+#### 查询特定用户
+GET /api/admin/user/get
+
+#### 请求参数
+| 名称 | 位置 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: | :--: |
+| Authorization | header | string | 是 | Bearer |
+| id | query | int | 是 |  |
+
+#### 返回数据结构
+| 名称 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: |
+| code | int | 是 | 状态码 |
+| message | string | 是 | 消息 |
+| data | object | 是 |  |
+| data > id | int | 是 |  |
+| data > username | string | 是 |  |
+| data > roles | string[] | 是 |  |
+| data > is_enable | bool | 是 |  |
+
+#### 设置用户属性
+POST /api/admin/user/set
+
+##### 请求参数
+| 名称 | 位置 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: | :--: |
+| Authorization | header | string | 是 | Bearer |
+| id | body | int | 是 |  |
+| username | body | string | 是 |  |
+| roles | body | string[] | 是 |  |
+| is_enable | body | bool | 是 |  |
+
+##### 返回数据结构
+| 名称 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: |
+| code | int | 是 | 状态码 |
+| message | string | 是 | 消息 |
+
+#### 设置用户密码
+POST /api/admin/user/set_password
+
+##### 请求参数
+| 名称 | 位置 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: | :--: |
+| Authorization | header | string | 是 | Bearer |
+| id | body | int | 是 |  |
+| password | body | string | 是 |  |
+
+##### 返回数据结构
+| 名称 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: |
+| code | int | 是 | 状态码 |
+| message | string | 是 | 消息 |
+
+### storage
+#### 列出所有存储
+GET /api/admin/storage/list
+
+##### 请求参数
+| 名称 | 位置 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: | :--: |
+| Authorization | header | string | 是 | Bearer |
+| page | query | int | 否 | 页码 |
+| per_page | query | int | 否 | 每页数量 |
+
+##### 返回数据结构
+| 名称 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: |
+| code | int | 是 | 状态码 |
+| message | string | 是 | 消息 |
+| data | object | 是 |  |
+| data > storages | object[] | 是 |  |
+| storages > id | int | 是 |  |
+| storages > path | string | 是 |  |
+| storages > is_enable | bool | 是 |  |
+
+### task
+#### 创建任务
+POST /api/task/create
+
+##### 请求参数
+| 名称 | 位置 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: | :--: |
+| Authorization | header | string | 是 | Bearer |
+| type | body | string | 是 | 枚举，类型有：扫描所有存储 |
+
+##### 返回数据结构
+| 名称 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: |
+| code | int | 是 | 状态码 |
+| message | string | 是 | 消息 |
+| data | object | 是 |  |
+| data > tasks | object[] | 是 |  |
+| tasks > id | int | 是 |  |
+| tasks > type | string | 是 |  |
+| tasks > state | string | 是 |  |
