@@ -35,6 +35,7 @@ erDiagram
         varchar(50) password_hash
         varchar(32) security_stamp
         varchar(36) concurrency_stamp
+        bool is_enable
         略 略
     }
     role {
@@ -54,4 +55,10 @@ erDiagram
     user ||--o{ song_list : 拥有
     user ||--o{ user_role : 拥有
     role ||--o{ user_role : 拥有
+
+    storage {
+        int id PK
+        varchar(256) path
+        bool is_enable
+    }
 ```
