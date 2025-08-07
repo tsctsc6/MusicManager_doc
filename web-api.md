@@ -283,7 +283,7 @@ POST /api/admin/user/set
 | 名称 | 位置 | 类型 | 必选 | 说明 |
 | :--: | :--: | :--: | :--: | :--: |
 | Authorization | header | string | 是 | Bearer |
-| id | body | int | 是 |  |
+| id | body | int | 是 | 无法修改，此字段用于定位用户 |
 | username | body | string | 是 |  |
 | roles | body | string[] | 是 |  |
 | is_enable | body | bool | 是 |  |
@@ -332,15 +332,83 @@ GET /api/admin/storage/list
 | storages > path | string | 是 |  |
 | storages > is_enable | bool | 是 |  |
 
-### task
-#### 创建任务
-POST /api/task/create
+#### 查询特定存储
+GET /api/admin/storage/get
 
 ##### 请求参数
 | 名称 | 位置 | 类型 | 必选 | 说明 |
 | :--: | :--: | :--: | :--: | :--: |
 | Authorization | header | string | 是 | Bearer |
-| type | body | string | 是 | 枚举，类型有：扫描所有存储 |
+| id | query | int | 是 |  |
+
+##### 返回数据结构
+| 名称 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: |
+| code | int | 是 | 状态码 |
+| message | string | 是 | 消息 |
+| data | object | 是 |  |
+| data > id | int | 是 |  |
+| data > path | string | 是 |  |
+| data > is_enable | bool | 是 |  |
+
+#### 创建存储
+POST /api/admin/storage/create
+
+##### 请求参数
+| 名称 | 位置 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: | :--: |
+| Authorization | header | string | 是 | Bearer |
+| path | body | string | 是 |  |
+| is_enable | body | bool | 是 |  |
+
+##### 返回数据结构
+| 名称 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: |
+| code | int | 是 | 状态码 |
+| message | string | 是 | 消息 |
+
+#### 删除存储
+POST /api/admin/storage/delete
+
+##### 请求参数
+| 名称 | 位置 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: | :--: |
+| Authorization | header | string | 是 | Bearer |
+| id | body | int | 是 |  |
+
+##### 返回数据结构
+| 名称 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: |
+| code | int | 是 | 状态码 |
+| message | string | 是 | 消息 |
+
+#### 修改存储
+POST /api/admin/storage/set
+
+##### 请求参数
+| 名称 | 位置 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: | :--: |
+| Authorization | header | string | 是 | Bearer |
+| id | body | int | 是 | 无法修改，此字段用于定位存储 |
+| path | body | string | 是 |  |
+| is_enable | body | bool | 是 |  |
+
+##### 返回数据结构
+| 名称 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: |
+| code | int | 是 | 状态码 |
+| message | string | 是 | 消息 |
+
+### task
+#### 列出所有任务
+GET /api/admin/task/list
+
+##### 请求参数
+| 名称 | 位置 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: | :--: |
+| Authorization | header | string | 是 | Bearer |
+| page | query | int | 否 | 页码 |
+| per_page | query | int | 否 | 每页数量 |
 
 ##### 返回数据结构
 | 名称 | 类型 | 必选 | 说明 |
@@ -351,4 +419,56 @@ POST /api/task/create
 | data > tasks | object[] | 是 |  |
 | tasks > id | int | 是 |  |
 | tasks > type | string | 是 |  |
-| tasks > state | string | 是 |  |
+| tasks > status | int | 是 |  |
+| tasks > description | string | 是 |  |
+
+#### 查询特定任务
+GET /api/admin/task/get
+
+##### 请求参数
+| 名称 | 位置 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: | :--: |
+| Authorization | header | string | 是 | Bearer |
+| id | query | int | 是 |  |
+
+##### 返回数据结构
+| 名称 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: |
+| code | int | 是 | 状态码 |
+| message | string | 是 | 消息 |
+| data | object | 是 |  |
+| data > id | int | 是 |  |
+| data > type | string | 是 |  |
+| data > status | int | 是 |  |
+| data > description | string | 是 |  |
+
+#### 创建任务
+POST /api/admin/task/create
+
+##### 请求参数
+| 名称 | 位置 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: | :--: |
+| Authorization | header | string | 是 | Bearer |
+| type | body | string | 是 |  |
+| status | body | int | 是 |  |
+
+##### 返回数据结构
+| 名称 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: |
+| code | int | 是 | 状态码 |
+| message | string | 是 | 消息 |
+
+#### 删除任务
+POST /api/admin/task/delete
+
+##### 请求参数
+| 名称 | 位置 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: | :--: |
+| Authorization | header | string | 是 | Bearer |
+| id | body | int | 是 |  |
+
+##### 返回数据结构
+| 名称 | 类型 | 必选 | 说明 |
+| :--: | :--: | :--: | :--: |
+| code | int | 是 | 状态码 |
+| message | string | 是 | 消息 |
